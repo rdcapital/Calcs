@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="js/calculator.js" defer></script>
+</head>
+
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white shadow-2xl rounded-3xl overflow-hidden w-full max-w-md">
+        <!-- display -->
+        <div
+            id="display"
+            class="bg-gradient-to-br from-gray-600 to-gray-700 flex item-center justify-end text-white text-6xl p-8 min-h-120px">
+            0
+        </div>
+
+         <!-- buttons grid -->
+          <div class="flex">
+
+
+            <!-- left side -->
+            <div class="grid grid-cols-3 flex-1">
+                <!-- row 1 -->
+                <button class="p-8 bg-gray-200 border border-gray-300 text-2xl">AC</button>
+                <button class="p-8 bg-gray-200 border border-gray-300 text-2xl">+/-</button>
+                <button class="p-8 bg-gray-200 border border-gray-300 text-2xl">%</button>
+
+                <!-- row 2 -->
+                <button class="p-8 bg-gray-200 border border-gray-300 text-2xl">7</button>
+                <button class="p-8 bg-gray-200 border border-gray-300 text-2xl">8</button>
+                <button class="p-8 bg-gray-200 border border-gray-300 text-2xl">9</button>
+
+                <!-- row 3 -->
+                <button class="p-8 bg-gray-200 border border-gray-300 text-2xl">4</button>
+                <button class="p-8 bg-gray-200 border border-gray-300 text-2xl">5</button>
+                <button class="p-8 bg-gray-200 border border-gray-300 text-2xl">6</button>
+
+                <!-- row 4 -->
+                <button class="p-8 bg-gray-200 border border-gray-300 text-2xl">1</button>
+                <button class="p-8 bg-gray-200 border border-gray-300 text-2xl">2</button>
+                <button class="p-8 bg-gray-200 border border-gray-300 text-2xl">3</button>
+
+                <!-- row 5 -->
+                <button class="p-8 bg-gray-200 border border-gray-300 text-2xl col-span-2">0</button>
+                <button class="p-8 bg-gray-200 border border-gray-300 text-2xl">.</button>
+
+
+
+
+
+            </div>
+
+            <!-- Right side-->
+             <div class="flex flex-col">
+                <button class="p-8 bg-orange-500 border border-orange-600 text-3xl">/</button>
+                <button class="p-8 bg-orange-500 border border-orange-600 text-3xl">x</button>
+                <button class="p-8 bg-orange-500 border border-orange-600 text-3xl">+</button>
+                <button class="p-8 bg-orange-500 border border-orange-600 text-3xl">-</button>
+                <button class="p-8 bg-orange-500 border border-orange-600 text-3xl">=</button>
+
+             </div>
+
+
+          </div>
+
+
+    </div>
+
+</body>
+</html>

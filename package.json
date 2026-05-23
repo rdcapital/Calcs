@@ -4,6 +4,7 @@
   "description": "Premium Scientific Calculator",
   "private": true,
   "scripts": {
-    "start": "echo 'Static site - open calculator.html in browser'"
+    "start": "echo 'Static site - open calculator.html in browser'",
+    "build": "echo 'No build required'"
   }
 }
