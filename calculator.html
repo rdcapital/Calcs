@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Scientific Calculator</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="js/script.js" defer></script>
+    <style>
+        /* Smooth cubic-bezier transition for card expansion */
+        #calculator-card {
+            transition: max-width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Smooth height, width and opacity transitions for the panels */
+        #scientific-panel {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #basic-panel {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Style adjustments when scientific panel is visible */
+        #calculator-card.scientific-active {
+            max-width: 48rem; /* 768px = max-w-3xl */
+        }
+        #calculator-card.scientific-active #scientific-panel {
+            width: 50%;
+            opacity: 1;
+        }
+        #calculator-card.scientific-active #basic-panel {
+            width: 50%;
+        }
+        /* Hide scrollbars but allow scrolling for visual cleanliness */
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-none {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Mobile-first responsive toggles to avoid cramped display */
+        @media (max-width: 640px) {
+            #calculator-card.scientific-active {
+                max-width: 28rem; /* Keep single card width */
+            }
+            #calculator-card.scientific-active #scientific-panel {
+                width: 100%;
+            }
+            #calculator-card.scientific-active #basic-panel {
+                width: 0%;
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4 bg-gray-100">
+    <div id="calculator-card" class="bg-white shadow-2xl rounded-3xl overflow-hidden w-full max-w-md transition-all duration-500 ease-in-out">
+        <!-- Sleek App Header Bar -->
+        <div class="flex justify-between items-center px-6 py-3 bg-gray-50 border-b border-gray-100 select-none">
+            <span class="text-gray-400 font-bold text-xs tracking-widest uppercase">Calculator</span>
+            <button id="mode-toggle" class="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 text-xs font-semibold rounded-full transition-colors cursor-pointer focus:outline-none">
+                Scientific
+            </button>
+        </div>
+
+        <!-- Premium Display (Splits into History & Main Output) -->
+         <div class="bg-gradient-to-br from-gray-600 to-gray-700 flex flex-col justify-end text-white p-8 min-h-140px select-none">
+            <div id="display-history" class="text-right text-gray-300 text-lg min-h-[28px] overflow-x-auto whitespace-nowrap scrollbar-none opacity-75 mb-1"></div>
+            <div id="display-main" class="text-right text-6xl font-light overflow-x-auto whitespace-nowrap scrollbar-none">0</div>
+         </div>
+
+         <!-- Buttons Grid Flex Container -->
+          <div class="flex overflow-hidden">
+            
+             <!-- Scientific Panel (Toggled via JS) -->
+             <div id="scientific-panel" class="grid grid-cols-4 w-0 opacity-0 overflow-hidden bg-slate-50">
+                 <!-- Row 1 -->
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">(</button>
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">)</button>
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">xʸ</button>
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">√</button>
+                 
+                 <!-- Row 2 -->
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">sin</button>
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">cos</button>
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">tan</button>
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">1/x</button>
+                 
+                 <!-- Row 3 -->
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">ln</button>
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">log</button>
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">x²</button>
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">x!</button>
+                 
+                 <!-- Row 4 -->
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">π</button>
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">e</button>
+                 <button id="btn-rad" class="p-8 bg-slate-100 border border-gray-300 text-sm font-bold text-orange-600 hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">Rad</button>
+                 <button id="btn-deg" class="p-8 bg-slate-100 border border-gray-300 text-sm font-normal text-gray-500 hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">Deg</button>
+                 
+                 <!-- Row 5 -->
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">eˣ</button>
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-xl font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">10ˣ</button>
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-sm font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">Rand</button>
+                 <button class="p-8 bg-slate-100 border border-gray-300 text-sm font-medium hover:bg-slate-200 transition-colors focus:outline-none cursor-pointer">Exp</button>
+             </div>
+
+             <!-- Basic Panel (Matches original structure perfectly) -->
+             <div id="basic-panel" class="flex flex-1">
+                 <!-- Left side (Numbers and special modifiers) -->
+                 <div class="grid grid-cols-3 flex-1">
+                     <!-- Row 1 -->
+                     <button class="p-8 bg-gray-200 border border-gray-300 text-2xl focus:outline-none cursor-pointer">AC</button>
+                     <button class="p-8 bg-gray-200 border border-gray-300 text-2xl focus:outline-none cursor-pointer">+/-</button>
+                     <button class="p-8 bg-gray-200 border border-gray-300 text-2xl focus:outline-none cursor-pointer">%</button>
+     
+                     <!-- Row 2 -->
+                     <button class="p-8 bg-gray-200 border border-gray-300 text-2xl focus:outline-none cursor-pointer">7</button>
+                     <button class="p-8 bg-gray-200 border border-gray-300 text-2xl focus:outline-none cursor-pointer">8</button>
+                     <button class="p-8 bg-gray-200 border border-gray-300 text-2xl focus:outline-none cursor-pointer">9</button>
+     
+                     <!-- Row 3 -->
+                     <button class="p-8 bg-gray-200 border border-gray-300 text-2xl focus:outline-none cursor-pointer">4</button>
+                     <button class="p-8 bg-gray-200 border border-gray-300 text-2xl focus:outline-none cursor-pointer">5</button>
+                     <button class="p-8 bg-gray-200 border border-gray-300 text-2xl focus:outline-none cursor-pointer">6</button>
+     
+                     <!-- Row 4 -->
+                     <button class="p-8 bg-gray-200 border border-gray-300 text-2xl focus:outline-none cursor-pointer">1</button>
+                     <button class="p-8 bg-gray-200 border border-gray-300 text-2xl focus:outline-none cursor-pointer">2</button>
+                     <button class="p-8 bg-gray-200 border border-gray-300 text-2xl focus:outline-none cursor-pointer">3</button>
+     
+                     <!-- Row 5 -->
+                     <button class="p-8 bg-gray-200 border border-gray-300 text-2xl col-span-2 focus:outline-none cursor-pointer">0</button>
+                     <button class="p-8 bg-gray-200 border border-gray-300 text-2xl focus:outline-none cursor-pointer">.</button>
+                 </div>
+     
+                 <!-- Right side (Standard Operators) -->
+                  <div class="flex flex-col">
+                     <button class="p-8 bg-orange-500 border border-orange-600 text-3xl text-white focus:outline-none cursor-pointer">/</button>
+                     <button class="p-8 bg-orange-500 border border-orange-600 text-3xl text-white focus:outline-none cursor-pointer">x</button>
+                     <button class="p-8 bg-orange-500 border border-orange-600 text-3xl text-white focus:outline-none cursor-pointer">+</button>
+                     <button class="p-8 bg-orange-500 border border-orange-600 text-3xl text-white focus:outline-none cursor-pointer">-</button>
+                     <button class="p-8 bg-orange-500 border border-orange-600 text-3xl text-white focus:outline-none cursor-pointer">=</button>
+                  </div>
+             </div>
+
+          </div>
+
+    </div>
+</body>
+</html>
