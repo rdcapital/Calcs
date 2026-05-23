@@ -1,5 +1,6 @@
 {
-  "buildCommand": "echo 'No build required'",
-  "outputDirectory": ".",
-  "cleanUrls": false
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/calculator.html" }
+  ]
 }
