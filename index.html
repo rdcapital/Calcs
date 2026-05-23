@@ -9,16 +9,37 @@
 </head>
 
 <body class="flex items-center justify-center min-h-screen p-4">
-    <div class="bg-white shadow-2xl rounded-3xl overflow-hidden w-full max-w-md">
+    <div id="calculator-card" class="bg-white shadow-2xl rounded-3xl overflow-hidden w-full max-w-md transition-all duration-500 ease-in-out">
+        <!-- mode selector -->
+        <div class="flex items-center justify-between px-6 py-4 bg-gray-50 border-b border-gray-100">
+            <span class="text-sm font-semibold text-gray-500 tracking-wide">Calculator</span>
+            <div class="flex bg-gray-200/80 p-0.5 rounded-xl text-xs font-semibold relative">
+                <button id="btn-basic" class="py-1.5 px-4 rounded-lg bg-white text-gray-800 shadow-sm transition-all duration-300 cursor-pointer">Basic</button>
+                <button id="btn-scientific" class="py-1.5 px-4 rounded-lg text-gray-500 hover:text-gray-800 transition-all duration-300 cursor-pointer">Scientific</button>
+            </div>
+        </div>
         <!-- display -->
         <div
             id="display"
-            class="bg-gradient-to-br from-gray-600 to-gray-700 flex item-center justify-end text-white text-6xl p-8 min-h-120px">
+            class="bg-gradient-to-br from-gray-600 to-gray-700 flex item-center justify-end text-white text-6xl p-8 min-h-120px transition-all duration-500">
             0
         </div>
 
          <!-- buttons grid -->
           <div class="flex">
+            <!-- Scientific Panel (hidden by default) -->
+            <div id="scientific-panel" class="hidden grid grid-cols-2 bg-gray-50 border-r border-gray-100 transition-all duration-500">
+                <button class="p-8 bg-gray-50 border border-gray-200 text-xl font-medium text-gray-600 hover:bg-gray-100 transition-colors">sin</button>
+                <button class="p-8 bg-gray-50 border border-gray-200 text-xl font-medium text-gray-600 hover:bg-gray-100 transition-colors">cos</button>
+                <button class="p-8 bg-gray-50 border border-gray-200 text-xl font-medium text-gray-600 hover:bg-gray-100 transition-colors">tan</button>
+                <button class="p-8 bg-gray-50 border border-gray-200 text-xl font-medium text-gray-600 hover:bg-gray-100 transition-colors">log</button>
+                <button class="p-8 bg-gray-50 border border-gray-200 text-xl font-medium text-gray-600 hover:bg-gray-100 transition-colors">ln</button>
+                <button class="p-8 bg-gray-50 border border-gray-200 text-xl font-medium text-gray-600 hover:bg-gray-100 transition-colors">^</button>
+                <button class="p-8 bg-gray-50 border border-gray-200 text-xl font-medium text-gray-600 hover:bg-gray-100 transition-colors">√</button>
+                <button class="p-8 bg-gray-50 border border-gray-200 text-xl font-medium text-gray-600 hover:bg-gray-100 transition-colors">π</button>
+                <button class="p-8 bg-gray-50 border border-gray-200 text-xl font-medium text-gray-600 hover:bg-gray-100 transition-colors">(</button>
+                <button class="p-8 bg-gray-50 border border-gray-200 text-xl font-medium text-gray-600 hover:bg-gray-100 transition-colors">)</button>
+            </div>
 
 
             <!-- left side -->
