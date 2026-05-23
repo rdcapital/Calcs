@@ -1,0 +1,9 @@
+{
+  "name": "calculator-app",
+  "version": "1.0.0",
+  "description": "Premium Scientific Calculator",
+  "private": true,
+  "scripts": {
+    "start": "echo 'Static site - open calculator.html in browser'"
+  }
+}
